@@ -1,32 +1,25 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Enable CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy =>
-        {
-            policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
+    options.AddPolicy("AllowAngular",
+        policy => policy.WithOrigins("http://3.82.162.128:4200") // Allow Angular frontend
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
 });
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Use CORS
-app.UseCors("AllowAll");
+app.UseCors("AllowAngular"); // Enable CORS
 
-app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
