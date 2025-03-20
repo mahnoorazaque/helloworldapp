@@ -1,15 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure CORS to allow Angular frontend
+// Configure CORS for Angular frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        policy => policy.WithOrigins("http://0.0.0.0:4200") // Use "localhost" instead of "0.0.0.0" for browser compatibility
+        policy => policy.WithOrigins("http://0.0.0.0:4200") // Use "localhost" instead of "0.0.0.0"
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
@@ -24,8 +25,11 @@ app.UseRouting();
 app.UseCors("AllowAngular");
 app.UseAuthorization();
 
-// Default route for base URL
-app.MapGet("/", () => "Backend is running! 🚀");
+// ✅ Redirect `/` to `/api/hello`
+app.MapGet("/", async (HttpContext context) =>
+{
+    context.Response.Redirect("/api/hello");
+});
 
 // Map API controllers
 app.MapControllers();
