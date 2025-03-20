@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        policy => policy.WithOrigins("http://3.82.162.128:4200") // Allow Angular frontend
+        policy => policy.WithOrigins("http://0.0.0.0:4200") // Allow Angular frontend
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });

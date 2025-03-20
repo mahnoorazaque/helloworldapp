@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - "5000:5000"
+      - "5004:5004"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     
