@@ -3,9 +3,12 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy project files and restore dependencies
-COPY . ./
+COPY ./backend/*.csproj ./
 RUN dotnet restore
-RUN dotnet publish -c Release -o out
+
+# Copy the rest of the code
+COPY ./backend ./
+RUN dotnet publish -c Release -o /publish
 
 # Use runtime image for final build
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
