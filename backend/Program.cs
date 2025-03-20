@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        policy => policy.WithOrigins("http://0.0.0.0:4200") // Use "localhost" instead of "0.0.0.0"
+        policy => policy.WithOrigins("http://localhost:4200") // Use "localhost" instead of "0.0.0.0"
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
