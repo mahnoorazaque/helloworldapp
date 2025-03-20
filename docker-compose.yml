@@ -1,17 +1,22 @@
-version: '3.8'
+version: "3.9"
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
-      - "5004:5004"
+      - "5000:5000"
     environment:
-      - ASPNETCORE_URLS=http://+:5004
-    restart: always
+      - ASPNETCORE_ENVIRONMENT=Production
+    
 
   frontend:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
-      - "4200:80"
+      - "4200:4200"
     depends_on:
       - backend
-    restart: always
+
+  

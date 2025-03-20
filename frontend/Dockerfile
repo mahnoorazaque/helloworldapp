@@ -1,21 +1,15 @@
-# Use Node.js image for building Angular app
-FROM node:20 AS build
+# Use Node.js image to build and serve the frontend
+FROM node:20
 WORKDIR /app
 
 # Copy package files and install dependencies
-COPY package.json package-lock.json ./
+COPY ./frontend/package.json ./frontend/package-lock.json ./
 RUN npm install
 
-# Copy project files and build
-COPY . .
-RUN npm run build --prod
+# Copy the rest of the frontend code
+COPY ./frontend ./
 
-# Use Nginx to serve Angular app
-FROM nginx:alpine
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
-
-# Expose Angular app port
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Build and serve the frontend
+RUN npm run build
+CMD ["npm", "run", "start"]
+EXPOSE 4200
