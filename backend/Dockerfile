@@ -30,4 +30,4 @@ COPY --from=build /app/publish .
 EXPOSE 5004
 
 # Run the application (replace with actual DLL name)
-CMD ["dotnet", "HelloWorldApp.dll"]
+CMD ["dotnet", "backend.dll"]
