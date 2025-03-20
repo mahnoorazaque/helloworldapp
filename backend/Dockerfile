@@ -1,5 +1,5 @@
 # Use official .NET SDK image for building the app
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy project files and restore dependencies
