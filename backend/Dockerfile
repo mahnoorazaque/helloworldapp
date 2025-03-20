@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o /publish
 # Use runtime image for final build
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
-COPY --from=build /publish.
+COPY --from=build /publish .
 
 # Expose API port
 EXPOSE 5004
