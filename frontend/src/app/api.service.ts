@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://0.0.0.0:5004/api/hello'; // Make sure this is correct
+  private apiUrl = 'http://172.21.52.106:5004/api/hello'; // Ensure this matches backend
 
   constructor(private http: HttpClient) {}
 
   getHelloMessage(): Observable<string> {
-    return this.http.get(this.apiUrl, { responseType: 'text' }); // Ensure responseType is 'text'
+    return this.http.get(this.apiUrl, { responseType: 'text' });
   }
 }
