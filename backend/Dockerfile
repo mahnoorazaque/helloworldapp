@@ -3,18 +3,20 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy everything inside backend
-COPY backend/ ./
-
-# Restore and build the project
 COPY ./backend/*.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the code
 COPY ./backend ./
 RUN dotnet build -c Release
+
+# Debugging Step: Check if the build output exists
+RUN ls -l /app/bin/Release/net9.0/
+
+# Publish the application
 RUN dotnet publish -c Release -o /app/publish
 
-# Debugging step: Check if publish folder exists
+# Debugging Step: Check if the publish folder exists
 RUN ls -l /app/publish
 
 # Use .NET runtime for the final image
